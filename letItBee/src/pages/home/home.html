@@ -15,7 +15,7 @@
         {{bee.name}}
       </ion-card-title>
       <p>
-        <b *ngFor="let c of bee.characteristics">{{c.name}} </b>
+        <b *ngFor="let c of bee.characteristics">{{c.getDescription()}} </b>
       </p>
     </ion-card-content>
   </ion-card>

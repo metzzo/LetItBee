@@ -3,9 +3,62 @@ import { Injectable } from '@angular/core';
 
 export class Characteristic {
   constructor(
-    public name: string
-  ) {
+    public name: string,
+    public level: number) {
 
+  }
+
+  getDescription(): string {
+    switch (this.level) {
+      case 0: {
+        switch (this.name) {
+          case 'courage': {
+            return "Anxious";
+          }
+          case 'speed': {
+            return "Slow";
+          }
+          case 'strength': {
+            return "weak";
+          }
+        }
+      }
+      case 1: {
+        return '';
+      }
+      case 2: {
+        switch (this.name) {
+          case 'courage': {
+            return "Brave";
+          }
+          case 'speed': {
+            return "Fast";
+          }
+          case 'strength': {
+            return "Strong";
+          }
+        }
+      }
+    }
+    return '';
+  }
+
+  compareWith(c: Characteristic): string {
+    if (this.level <= c.level || this.name != c.name) {
+      return '';
+    }
+
+    switch (this.name) {
+      case 'courage': {
+        return "Braver";
+      }
+      case 'speed': {
+        return "Faster";
+      }
+      case 'strength': {
+        return "Stronger";
+      }
+    }
   }
 }
 
@@ -15,6 +68,15 @@ export class Bee {
     public beePicture: string,
     public characteristics: Characteristic[]) {
 
+  }
+
+  getCharacteristic(name: string): Characteristic {
+    for (let c of this.characteristics) {
+      if (c.name == name) {
+        return c;
+      }
+    }
+    return null;
   }
 }
 
@@ -44,6 +106,17 @@ export class Mission {
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+const brave = new Characteristic("courage", 2);
+const normalCourage = new Characteristic("courage", 1);
+const anxious = new Characteristic("courage", 0);
+const slow = new Characteristic("speed", 0);
+const normalSpeed = new Characteristic("speed", 1);
+const fast = new Characteristic("speed", 2);
+const strong = new Characteristic("strength", 2);
+const normalStrength = new Characteristic("strength", 1);
+const weak = new Characteristic("strength", 0);
+
 @Injectable()
 export class BeeProvider {
 
@@ -52,23 +125,21 @@ export class BeeProvider {
   }
 
   getBees(): Bee[] {
-    const brave = new Characteristic("Brave");
-    const anxious = new Characteristic("Anxious");
-    const slow = new Characteristic("Slow");
-    const fast = new Characteristic("Fast");
-    const strong = new Characteristic("Strong");
-    const weak = new Characteristic("Weak");
-
     return [
-      new Bee("Horst", "assets/imgs/bee1.jpeg", [brave, slow, strong]),
-      new Bee("Anna","assets/imgs/bee2.jpg", [anxious, fast, weak]),
-      new Bee("Franziska","assets/imgs/bee3.jpg", [brave, weak, slow]),
-      new Bee("Boris","assets/imgs/bee4.jpeg", [anxious, slow, weak])
+      new Bee("Horst", "assets/imgs/bee1.jpeg", [brave, slow, normalStrength]),
+      new Bee("Anna","assets/imgs/bee2.jpg", [fast, weak, normalCourage]),
+      new Bee("Franziska","assets/imgs/bee3.jpg", [brave, strong, normalSpeed]),
+      new Bee("Boris","assets/imgs/bee4.jpeg", [anxious, fast, normalStrength])
     ];
   }
 
   getMissions(): Mission[]{
-    const bees = this.getBees();
+    const bees = [
+      new Bee("Gertrud","assets/imgs/bee3.jpg", [anxious, weak, normalSpeed]),
+      new Bee("Lukas","assets/imgs/bee4.jpeg", [slow, fast, normalStrength]),
+      new Bee("Horst", "assets/imgs/bee1.jpeg", [brave, fast, strong]),
+      new Bee("Anna","assets/imgs/bee2.jpg", [anxious, weak, slow]),
+    ];
 
     return [
       new Mission("Pollinate Sunflower", "assets/imgs/mission1.jpeg", "Behind the house", 0, 3, [

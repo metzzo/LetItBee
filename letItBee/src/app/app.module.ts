@@ -7,15 +7,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MissionPage } from '../pages/mission/mission';
-import {MissionDetailPage, MissionPage} from '../pages/mission-detail/mission-detail';
+import { MissionDetailPage } from '../pages/mission-detail/mission-detail';
 import { BeeProvider } from '../providers/bee/bee';
+import {CompareBeePage} from "../pages/compare-bee/compare-bee";
+import {MissionProgressPage} from "../pages/mission-progress/mission-progress";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MissionPage,
-    MissionDetailPage
+    MissionDetailPage,
+    CompareBeePage,
+    MissionProgressPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,9 @@ import { BeeProvider } from '../providers/bee/bee';
     MyApp,
     HomePage,
     MissionPage,
-    MissionDetailPage
+    MissionDetailPage,
+    CompareBeePage,
+    MissionProgressPage
   ],
   providers: [
     StatusBar,

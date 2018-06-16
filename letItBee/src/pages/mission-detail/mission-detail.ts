@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Bee, Mission} from "../../providers/bee/bee";
+import {CompareBeePage} from "../compare-bee/compare-bee";
+import {MissionProgressPage} from "../mission-progress/mission-progress";
 
 /**
  * Generated class for the MissionDetailPage page.
@@ -19,8 +21,9 @@ export class MissionDetailPage {
   private bee: Bee;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams) {
+    private modalCtrl: ModalController,
+    private navCtrl: NavController,
+    private navParams: NavParams) {
     this.bee = this.navParams.get('bee');
     this.mission = this.navParams.get('mission');
   }
@@ -30,6 +33,15 @@ export class MissionDetailPage {
   }
 
   compareBee(bee: Bee) {
+    const modal = this.modalCtrl.create(CompareBeePage, {
+      bee1: this.bee,
+      bee2: bee
+    });
+    modal.present();
+  }
 
+  startMission() {
+    this.navCtrl.pop({animate: false});
+    this.navCtrl.push(MissionProgressPage);
   }
 }
