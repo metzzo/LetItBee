@@ -16,7 +16,8 @@ export class HomePage {
   }
 
   selectBee(bee: Bee) {
-    console.log(bee);
-    this.navCtrl.push(MissionPage);
+    this.navCtrl.push(MissionPage, {
+      bee: bee
+    });
   }
 }

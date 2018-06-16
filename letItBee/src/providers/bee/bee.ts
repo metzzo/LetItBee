@@ -18,6 +18,26 @@ export class Bee {
   }
 }
 
+export class Review {
+  constructor(
+    public bee: Bee,
+    public comment: string) {
+
+  }
+}
+
+export class Mission {
+  constructor(
+    public name: string,
+    public missionPicture: string,
+    public location: string,
+    public inProgress: number,
+    public finished: number,
+    public reviews: Review[]) {
+
+  }
+}
+
 /*
   Generated class for the BeeProvider provider.
 
@@ -45,5 +65,24 @@ export class BeeProvider {
       new Bee("Franziska","assets/imgs/bee3.jpg", [brave, weak, slow]),
       new Bee("Boris","assets/imgs/bee4.jpeg", [anxious, slow, weak])
     ];
+  }
+
+  getMissions(): Mission[]{
+    const bees = this.getBees();
+
+    return [
+      new Mission("Pollinate Sunflower", "assets/imgs/mission1.jpeg", "Behind the house", 0, 3, [
+        new Review(bees[0], "Very cool mission! There were no problems."),
+        new Review(bees[1], "It was okay."),
+        new Review(bees[2], "OMG it was so bad."),
+      ]),
+      new Mission("Pollinate Daisy", "assets/imgs/mission2.jpg", "On the grassland", 3, 5, [
+        new Review(bees[2], "There was a big spider, it went terribly wrong."),
+        new Review(bees[3], "No problems at all!"),
+      ]),
+      new Mission("Pollinate Rose", "assets/imgs/mission3.jpg", "Next to the street", 1, 10, [
+        new Review(bees[1], "I nearly got hit by a car and it is way too far. DO NOT RECOMMEND.")
+      ])
+    ]
   }
 }

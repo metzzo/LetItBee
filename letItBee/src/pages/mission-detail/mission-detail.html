@@ -1,5 +1,5 @@
 <!--
-  Generated template for the MissionPage page.
+  Generated template for the MissionDetailPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,15 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mission</ion-title>
+    <ion-title>MissionDetail</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h1>Choose your Mission</h1>
-  <ion-card *ngFor="let mission of beeProvider.getMissions()" (click)="selectMission(mission)">
+  <ion-card >
     <img [src]="mission.missionPicture"/>
     <ion-card-content>
       <ion-card-title>
@@ -26,14 +25,15 @@
         {{mission.inProgress}} / {{mission.finished}} Finished
       </p>
     </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>{{mission.reviews.length}} Reviews</div>
-        </button>
-      </ion-col>
-    </ion-row>
+    <ion-list>
+      <ion-item *ngFor="let review of mission.reviews" (click)="compareBee(review.bee)" text-wrap>
+        <ion-avatar item-start>
+          <img [src]="review.bee.beePicture">
+        </ion-avatar>
+        <h2>{{review.bee.name}}</h2>
+        <p>{{review.comment}}</p>
+      </ion-item>
 
+    </ion-list>
   </ion-card>
 </ion-content>
