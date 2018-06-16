@@ -1,14 +1,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Let It Bee
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <h1>Choose your Bee</h1>
+  <ion-card *ngFor="let bee of beeProvider.getBees()" (click)="selectBee(bee)">
+    <img [src]="bee.beePicture"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{bee.name}}
+      </ion-card-title>
+      <p>
+        <b *ngFor="let c of bee.characteristics">{{c.name}} </b>
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
